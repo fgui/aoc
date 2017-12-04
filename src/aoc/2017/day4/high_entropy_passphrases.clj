@@ -30,4 +30,4 @@
   (is (= false (valid? "hola adeu hola"))))
 
 ;; solution
-(count-valid (clojure.string/split-lines (slurp "resources/day4.txt")))
+(count-valid (clojure.string/split-lines (slurp "resources/2017/day4.txt")))
