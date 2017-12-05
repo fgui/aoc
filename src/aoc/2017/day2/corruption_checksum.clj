@@ -6,13 +6,13 @@
 
 ;;test
 (deftest example
-  (is (= 18 (corruption-checksum [[5 1 9 5]
+    (is (= 18 (corruption-checksum [[5 1 9 5]
                                   [7 5 3]
                                   [2 4 6 8]]))))
 
 ;;solution
-(corruption-checksum
-   [[1640	590	93	958	73	1263	1405	1363	737	712	1501	390	68	1554	959	79]
+(def input
+  [[1640	590	93	958	73	1263	1405	1363	737	712	1501	390	68	1554	959	79]
     [4209	128	131	2379	2568	2784	2133	145	3618	1274	3875	158	1506	3455	1621	3799]
     [206	1951	2502	2697	2997	74	76	78	1534	81	2775	2059	3026	77	2600	3067]
     [373	1661	94	102	2219	1967	1856	417	1594	75	100	2251	2200	1825	1291	1021]
@@ -28,3 +28,33 @@
     [1008	78	1196	607	135	1409	296	475	915	157	1419	1304	153	423	163	704]
     [235	4935	4249	3316	1202	221	1835	380	249	1108	1922	5607	4255	238	211	3973]
     [1738	207	179	137	226	907	1468	1341	1582	1430	851	213	393	1727	1389	632]])
+(corruption-checksum input)
+
+
+;; part2
+(defn some-div [n coll]
+  (some #(when (zero? ( mod n %))
+           (/ n %)) coll))
+
+(defn div [sorted-coll-numbers]
+  (if (empty? sorted-coll-numbers)
+    0
+    (if-let [d (some-div (first sorted-coll-numbers) (rest sorted-coll-numbers))]
+      d
+      (recur (rest sorted-coll-numbers)))))
+
+(defn divisions [coll-numbers]
+  (->> coll-numbers
+      (sort >)
+      div))
+
+(defn corruption-checksum-2 [input]
+  (apply + (map divisions input)))
+
+(deftest example-2
+  (is (= 9 (corruption-checksum-2
+            [[5 9 2 8]
+             [9 4 7 3]
+             [3 8 6 5]]))))
+
+(corruption-checksum-2 input)
