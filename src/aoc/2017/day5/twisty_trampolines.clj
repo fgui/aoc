@@ -5,6 +5,10 @@
   [(+ pos (nth offsets pos))
    (update offsets pos inc)])
 
+(defn jump-2 [[pos offsets]]
+  [(+ pos (nth offsets pos))
+   (update offsets pos #(if (>= % 3) (dec %) (inc %)))])
+
 ;;solution 1 recur
 (defn steps-twisty-trampoline-acc
   [acc [pos offsets :as twisty-trampoline]]
@@ -26,6 +30,15 @@
       (recur (inc acc) (jump twisty)))
     ))
 
+(defn steps-twisty-trampoline-2
+  [twisty-trampoline]
+  (loop [acc 0
+         twisty twisty-trampoline]
+    (if (>= (first twisty) (count (second twisty)))
+      acc
+      (recur (inc acc) (jump-2 twisty)))
+    ))
+
 ;; test
 (deftest test-jump
   (is (= [0 [1 3 0 1 -3]] (jump [0 [0 3 0 1 -3]]))))
@@ -33,9 +46,14 @@
 (deftest test-steps-twisty-trampoline
   (is (= 5 (steps-twisty-trampoline [0 [0 3 0 1 -3]]))))
 
+;;part-2
+(deftest test-steps-twisty-trampoline
+  (is (= 10 (steps-twisty-trampoline-2 [0 [0 3 0 1 -3]]))))
+
+
 ;; problem - solution
-(steps-twisty-trampoline
- [0
+
+(def input [0
   [0
    2
    2
@@ -1088,3 +1106,8 @@
    -988
    -529
    -925]])
+
+(steps-twisty-trampoline
+ input)
+(steps-twisty-trampoline-2
+ input)
