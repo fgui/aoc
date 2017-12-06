@@ -31,3 +31,23 @@
 
 ;; solution
 (count-valid (clojure.string/split-lines (slurp "resources/2017/day4.txt")))
+
+(defn no-anagrams? [coll]
+  (no-duplicates? (map frequencies coll))
+  )
+
+(defn valid-2? [line]
+  (and (lower-case? line)
+       (->> (clojure.string/split line #" ")
+            no-anagrams?)))
+
+(defn count-valid-2 [lines]
+  (count (filter valid-2? lines)))
+
+;;testing 2
+(deftest test-anagrams
+  (is (= false (no-anagrams? ["hola" "adeu"])))
+  (is (= true (no-anagrams? ["hola" "aloh"]))))
+
+;;solution 2
+(count-valid-2 (clojure.string/split-lines (slurp "resources/2017/day4.txt")))
