@@ -41,4 +41,4 @@
 (->> (slurp "resources/2015/day2.txt")
      clojure.string/split-lines
      (map parse-line)
-     (add-f-list ribbon-for))
+     (add-f-list ribbon-for)) 

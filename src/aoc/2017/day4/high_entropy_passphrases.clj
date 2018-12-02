@@ -46,8 +46,8 @@
 
 ;;testing 2
 (deftest test-anagrams
-  (is (= false (no-anagrams? ["hola" "adeu"])))
-  (is (= true (no-anagrams? ["hola" "aloh"]))))
+  (is (= true (no-anagrams? ["hola" "adeu"])))
+  (is (= false (no-anagrams? ["hola" "aloh"]))))
 
 ;;solution 2
 (count-valid-2 (clojure.string/split-lines (slurp "resources/2017/day4.txt")))
