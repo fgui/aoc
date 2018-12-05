@@ -23,7 +23,7 @@
                     )
                   '() pol
                   ))]
-    (println (count pol))
+    ;;(println (count pol))
     (if (= (count pol) (count new-pol))
       new-pol
       (recur new-pol)
