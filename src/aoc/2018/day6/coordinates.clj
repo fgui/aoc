@@ -57,3 +57,27 @@
      second)))
 
 (answer1)
+
+(defn max-distance [point points]
+  (let [distances (map (fn [p] [(manhattan-distance point p) p])  points)]
+    (apply + (map first distances))
+    ))
+
+(defn create-map-distances [input grid]
+  (reduce
+   (fn [m c]
+     (assoc m c (max-distance c input)))
+   {}
+   grid))
+
+
+(defn answer2 []
+  (let [points (parse-input)
+        grid (create-map-distances points (grid-coordinates points))]
+    (->>
+     grid
+     vals
+     (filter #(< % 10000))
+     count)))
+
+(answer2)
