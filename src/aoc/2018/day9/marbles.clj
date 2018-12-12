@@ -88,9 +88,11 @@
   (apply max (first (game-ll num-players last-ball))))
 
 
-
-
-
+;; last attempt got both solutions with this.
+;; jvm memory set to 3Gb and server.
+;; fast access to current node which is the board itself
+;; fast access to siblings and fast insert and delete.
+;; Used a vector [previous next value]
 
 (defn initial-board []
   (let [initial-board
@@ -102,11 +104,6 @@
     (reset! (second initial-board) initial-board)
     initial-board))
 
-;; last attempt got both solutions with this.
-;; jvm memory set to 3Gb and server.
-;; fast access to current node which is the board itself
-;; fast access to siblings and fast insert and delete.
-;; Used a vector [previous next value]
 (defn play-board [[players board] num-marble]
   (let [player (mod (dec num-marble) (count players))
         special-ball (zero? (mod num-marble 23))]
