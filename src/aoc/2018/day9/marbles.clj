@@ -110,6 +110,7 @@
     (if (zero? (mod num-marble 10000))
       (println num-marble))
     (if special-ball
+      ;; REFACTOR abstract move -7 or move +1
       (let [node @(first
                    @(first
                      @(first
@@ -119,6 +120,7 @@
                              @(first board)))))))
             val (last node)
             ]
+        ;; REFACTOR delete
         (reset! (second @(first node)) @(second node))
         (reset! (first @(second node)) @(first node))
         [(update players player + num-marble val)
@@ -129,6 +131,7 @@
                       (atom node)
                       (atom @(second node))
                       num-marble]]
+        ;; REFACTOR insert
         (reset! (first @(second node)) new-node)
         (reset! (second node) new-node)
         [players
@@ -165,5 +168,3 @@
   (max-score2 452 71250)
   (max-score2 452 (* 100 71250))
   )
-
-
